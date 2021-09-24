@@ -11,9 +11,6 @@ DIR_NAME = 'AWS'
 REGION = 'eu-west-1'
 
 
-    
-
-
 def main():
     filename = SOURCE_FILE_NAME
     if not check_file_present(filename):
@@ -37,17 +34,17 @@ def create_aws_dir(dir_name):
 def save_datatofile(filename):
     dir_aws_name = DIR_NAME
     file_aws_name = FILE_AWS_NAME
-    awsdirpath = create_aws_dir(dir_aws_name)
-    file = (os.path.join(awsdirpath, file_aws_name))
-    write_data_file()
 
-    
+    awsdirpath = create_aws_dir(dir_aws_name)
+    awsfile = (os.path.join(awsdirpath, file_aws_name))
+    write_data_file(awsfile, get_info(filename))
+
+
     file_config_aws_name = FILE_CONFIG_AWS_NAME  
     region = 'region = ' + REGION
     towrite = ['[default]', region]
     configfile = (os.path.join(awsdirpath, file_config_aws_name))
-    with open(configfile, 'w') as file:
-        file.write('\n'.join(towrite))    
+    write_data_file(configfile, towrite)
 
 
 def write_data_file(filename, data):
